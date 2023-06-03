@@ -1,21 +1,25 @@
 name: "Unit Test"
 
-on: [pull_request]
-  test:
-    runs-on: ubuntu-latest
+on: 
+  pull_request:
+    types: [opened, reopened]
 
-    strategy:
-      matrix:
-        node-version: [18.x]
+  jobs:
+    test:
+      runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install packages
-        run: npm cli
-      - name: Running tests
-        run: npm test
+      strategy:
+        matrix:
+          node-version: [18.x]
+
+      steps:
+        - name: Checkout repo
+          uses: actions/checout@v2
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-version }}
+        - name: Install packages
+          run: npm cli
+        - name: Running tests
+          run: npm test
